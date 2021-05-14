@@ -1,0 +1,14 @@
+# Do not list content by default
+Options -Indexes
+
+# Deny everything unles allowed
+order allow,deny
+#deny from all
+
+# Allow everything for now
+allow from all
+
+# All resources should be heavily cached
+<IfModule mod_headers.c>
+Header set Cache-Control "max-age=31536050, public"
+</IfModule>
