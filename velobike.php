@@ -6,7 +6,11 @@ https://developers.google.com/kml/documentation/kml_tut
 header('Content-type: application/vnd.google-earth.kml+xml');
 header("Content-disposition: attachment; filename=velobike.kml");
 
-$baseuri = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+$baseuri = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+if (substr($baseuri, -1) != '/') //already a path only
+	$baseuri = dirname($baseuri);
+else
+	$baseuri = substr($baseuri, 0, -1); //remove /
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
