@@ -44,18 +44,17 @@ print_style("parking6", "marker6_32.png");
 print_style("parking7", "marker7_32.png");
 print_style("parking8", "marker8_32.png");
 
-//Пока вызываю без проверки, тк промежуточного сертификата в дефолтных нет, а к сайту не приложен.
-//Это не первый раз, когда с velobike такая ерунда - из Андроида по той же причине отказывало.
+//Велобайк часто присылает цепочку сертификатов без промежуточного, а качивать его клиент SSL и не думает.
+//Это не первый раз с velobike такая ерунда, из Андроида по той же причине отказывало.
+//Официальное решение - включать промежуточный вручную, но пришлось бы обновлять его каждый раз.
 $contextOptions=array(
     "ssl"=>array(
         "verify_peer"=>false,
         "verify_peer_name"=>false,
     ),
 );  
-
 $resp = file_get_contents("https://velobike.ru/ajax/parkings/", false, stream_context_create($contextOptions));
 $data = json_decode($resp);
-
 
 
 foreach ($data->Items as $pt) {
